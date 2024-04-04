@@ -48,3 +48,7 @@ Code and resources for SIGGRAPH 2023  paper [NeuSample: Importance Sampling for 
 
 Reference:
 We built upon https://github.com/VincentStimper/normalizing-flows. Credit goes to them.
+
+Please let us know if you have any questions! 
+
+Bing Xu at b4xu@ucsd.edu
