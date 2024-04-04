@@ -1,5 +1,5 @@
 # neusample_release
-Code and resources for SIGGRAPH 2023  paper NeuSample: Importance Sampling for Neural Materials 
+Code and resources for SIGGRAPH 2023  paper [NeuSample: Importance Sampling for Neural Materials](https://cseweb.ucsd.edu/~viscomp/projects/neusample/) 
 
 
 # 6D BRDF data 
@@ -9,7 +9,32 @@ Code and resources for SIGGRAPH 2023  paper NeuSample: Importance Sampling for N
 - 6D data: 2D for incoming direction; 2D for outgoing direction; 2D for surface uv. Please refer to NeuMIP and NeuSample papers for more details.
 
 
+# Training script examples for various sampling methods
+- baselines
+  
+  neusample\scripts\train_xs0000_02_baseline.py
+  
+  neusample\scripts\train_xs0000_05_xie.py
+  
+- analytical method:
+  
+  neusample\scripts\train_xs0000_00_analytical.py or neusample\scripts\train_xs0027_00_analytical.py for two material examples.
 
+- normalizing flow:
+  
+  neusample\scripts\train_xs0000_04_nsf_prior.py
+  
+- histogram mixture:
+  
+  neusample\histogram\train_histogram.py
+
+  
+# Model inference and render using Mitsuba
+  
+  neusample\histogram\eval_mitsuba.py
+  
+  neusample\histogram\eval_tiled.py (tiled version)
+  
 # Please cite our paper if you don't buy us ice creams
 ```
 @inproceedings{xu2023neusample,
@@ -20,3 +45,6 @@ Code and resources for SIGGRAPH 2023  paper NeuSample: Importance Sampling for N
   year={2023}
 }
 ```
+
+Reference:
+We built upon https://github.com/VincentStimper/normalizing-flows. Credit goes to them.
