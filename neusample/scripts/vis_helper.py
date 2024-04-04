@@ -14,8 +14,6 @@ import matplotlib.pyplot as plt
 import argparse
 
 from utils import exr, ops, la2
-from nis_base import *
-from nis_light import *
 from nsf_light_bk import *
 from xie_model import *
 from neumat import interfaces
@@ -238,32 +236,18 @@ class vis_helper:
         
         with torch.no_grad():
             
-            if (isinstance(model, NISAnalyticalMixture) or isinstance(model, NISLightMixture) or isinstance(model, NISLightLambertMixture)):
-                cond_vec = encoder.compute_cond(camera_dir_tensor, uv_tensor)
-                logp = model.log_prob(light_dir, cond_vec)
-            elif (isinstance(model, GMMWeightedCond) or isinstance(model, GMMWeightedCondLarge) ):
+            if (isinstance(model, GMMWeightedCond) or isinstance(model, GMMWeightedCondLarge) ):
                 cond_vec = encoder.compute_cond(camera_dir_tensor, uv_tensor)
                 logp = model.log_prob(light_dir, cond_vec)
                 # logp = model.log_prob_topweight_gauss(light_dir, cond_vec)
             elif (isinstance(model, GMMWeightedCondIsoLarge)):
                 cond_vec = encoder.compute_cond(camera_dir_tensor, uv_tensor)
                 logp = model.log_prob(light_dir, cond_vec, camera_dir_tensor)
-            elif (isinstance(model, NISQuad) or isinstance(model, NISQuadMixture)\
-                or isinstance(model, NISQuadLight) or isinstance(model, NSFLight_CL) or isinstance(model, RealNVP)\
-                or isinstance(model, NSFLightLambertMixture_2c)):
-                cond_vec = encoder.compute_cond(camera_dir_tensor, uv_tensor)
-                logp = model.log_prob(light_dir, cond_vec)
-            elif (isinstance(model, NISQuadWarpLight)):
-                cond_vec = encoder.compute_cond(camera_dir_tensor, uv_tensor)
-                logp = model.log_prob(light_dir[valid_mask], cond_vec[valid_mask])
-            
+
             else:
                 raise NotImplementedError("Not supported model type")
 
-        if (isinstance(model, NISQuadWarpLight)):
-            pdfs[valid_mask] = torch.exp(logp).cpu()
-        else:
-            pdfs = torch.exp(logp).cpu()
+        pdfs = torch.exp(logp).cpu()
         # pdfs[invalid_dirs] = 0.0
         A = 4/(resolution * resolution)
         pdfs *= 1/(A*torch.sum(pdfs))
@@ -301,20 +285,7 @@ class vis_helper:
         with torch.no_grad():
             if(isinstance(model, nf.NTCondNormalizingFlow)):
                 logp = model.log_prob(light_dir, wi_input, uv_input)
-            elif (isinstance(model, NISAnalyticalMixture) or isinstance(model, NISLightMixture) or isinstance(model, NISLightLambertMixture)):
-                cond_vec = encoder.compute_cond(wi_input, uv_input)
-                logp = model.log_prob(light_dir, cond_vec)
-            # elif (isinstance(model,bnaf_conditional.BNAFFeat)):
-            #     cond_vec = encoder.compute_cond(wi_input, uv_input)
-            #     inputs = torch.cat((cond_vec, light_dir), dim=1)
-            #     logp = bnaf_conditional.compute_kl_pq_loss(model, inputs)
-            # elif (isinstance(model, UMNNMAFFlow)):
-            #     assert(encoder!=None)
-            #     cond_vec = encoder.compute_cond(wi_input, uv_input)
-            #     ll, z = model.compute_ll(light_dir, cond_vec)
-            #     logp = ll
-            # elif (isinstance(model, MAF)):
-            #     logp = model.density(light_dir)
+            
             elif (isinstance(model, WeightedSumDistribution) or isinstance(model, GMMCond)):
                 cond_vec = encoder.compute_cond(wi_input, uv_input)
                 # logp = model.log_prob(light_dir, cond_vec)
@@ -328,15 +299,7 @@ class vis_helper:
             elif (isinstance(model, GMMWeightedCondIsoLarge)):
                 cond_vec = encoder.compute_cond(wi_input, uv_input)
                 logp = model.log_prob(light_dir, cond_vec, wi_input)
-            elif (isinstance(model, NISQuad) or isinstance(model, NISQuadMixture)\
-                or isinstance(model, NISQuadLight) or isinstance(model, NSFLight_CL) or isinstance(model, RealNVP)\
-                or isinstance(model, NSFLightLambertMixture_2c)\
-                or isinstance(model, NISLightLambertMixture_2c)):
-                cond_vec = encoder.compute_cond(wi_input, uv_input)
-                logp = model.log_prob(light_dir, cond_vec)
-            elif (isinstance(model, NISQuadWarpLight)):
-                cond_vec = encoder.compute_cond(wi_input, uv_input)
-                logp = model.log_prob(light_dir[valid_mask], cond_vec[valid_mask])
+
             elif (isinstance(model, bnaf_cond.Sequential)):
                 cond_vec = encoder.compute_cond(wi_input, uv_input)
                 inputs = torch.cat((cond_vec, light_dir), dim=1)
@@ -351,10 +314,7 @@ class vis_helper:
                     )
                 logp = log_p_y_mb + log_diag_j_mb
 
-        if (isinstance(model, NISQuadWarpLight)):
-            pdfs[valid_mask] = torch.exp(logp).cpu()
-        else:
-            pdfs = torch.exp(logp).cpu()
+        pdfs = torch.exp(logp).cpu()
         A = 4/(resolution * resolution)
         pdfs[invalid_dirs] = 0.0
         pdfs = pdfs.reshape(resolution, resolution, S).mean(-1)
@@ -394,9 +354,6 @@ class vis_helper:
         with torch.no_grad():
             if(isinstance(model, nf.NTCondNormalizingFlow)):
                 x, log_q = model.sample( wi_input, uv_input,num_samples)
-            elif ( isinstance(model, NSFLight_CL) or isinstance(model, RealNVP) or isinstance(model, NISQuadMixture) or isinstance(model, NISQuadLight) or isinstance(model, NISLightLambertMixture)):
-                cond_vec = encoder.compute_cond(wi_input, uv_input)
-                x, _ = model.sample(cond_vec, num_samples)
             elif (isinstance(model, GMMWeightedCond) or isinstance(model, GMMWeightedCondLarge)):
                 cond_vec = encoder.compute_cond(wi_input, uv_input)
                 x, _ = model(cond_vec, num_samples)

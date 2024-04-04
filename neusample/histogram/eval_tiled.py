@@ -152,24 +152,6 @@ if __name__ == '__main__':
         model = BaseLine()
         model.load_state_dict(weight)
         
-    elif SAMPLER == 'normflow':
-        state_dict = torch.load(SAMPLER_PATH,map_location='cpu')
-        weight = {}
-        for k,v in state_dict['net'].items():
-            if 'flows.0.pw_qua_coupling.transform_net.net.' in k:
-                weight[k.replace('flows.0.pw_qua_coupling.transform_net.net.',
-                                 'mlps.0.')] = v
-            elif 'flows.2.pw_qua_coupling.transform_net.net.' in k:
-                weight[k.replace('flows.2.pw_qua_coupling.transform_net.net.',
-                                 'mlps.1.')] = v
-
-        D = 0
-        for k in weight.keys():
-            if 'mlps.0' in k:
-                D += 1
-        D = (D//2) - 1
-        model = NIS(32,D=D)
-        model.load_state_dict(weight)
     elif SAMPLER == 'normflow2':
         state_dict = torch.load(SAMPLER_PATH,map_location='cpu')['net']    
         weight = {}
