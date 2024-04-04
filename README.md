@@ -7,3 +7,16 @@ Code and resources for SIGGRAPH 2023  paper NeuSample: Importance Sampling for N
 - 40+ different materials for public use including anisotropic and multi-layer; not all are used in the original paper. Credit to Fujun Luan (model training) and Alexandr Kuznetsov, Krishna Mullia (NeuMIP implementation).
 - this is in the format of training weights .ckpt, which can be used by Adobe version of simplified [NeuMIP](https://cseweb.ucsd.edu/~viscomp/projects/NeuMIP/) implementation (credit to Krishna Mullia and Alexandr Kuznetsov).
 - 6D data: 2D for incoming direction; 2D for outgoing direction; 2D for surface uv. Please refer to NeuMIP and NeuSample papers for more details.
+
+
+
+# Please cite our paper if you don't buy us ice creams
+```
+@inproceedings{xu2023neusample,
+  title={NeuSample: Importance Sampling for Neural Materials},
+  author={Xu, Bing and Wu, Liwen and Hasan, Milos and Luan, Fujun and Georgiev, Iliyan and Xu, Zexiang and Ramamoorthi, Ravi},
+  booktitle={ACM SIGGRAPH 2023 Conference Proceedings},
+  pages={1--10},
+  year={2023}
+}
+```
