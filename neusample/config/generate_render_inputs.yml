@@ -1,0 +1,9 @@
+name: "generate_inputs_nomip"
+
+dataset_name: "data/training_data/stylized_wool_render.h5"
+blend_file: "data/scenes/substance_stylized_wool.blend"
+resolution: [512, 512]
+num_images: 1
+fixed_patch: True
+fixed_camera: True
+fixed_light: True

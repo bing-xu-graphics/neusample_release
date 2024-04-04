@@ -1,0 +1,9 @@
+name: "generate_inputs_nomip"
+
+dataset_name: "data/training_data/fur_all.h5"
+blend_file: "data/scenes/newfur.blend"
+resolution: [512, 512]
+num_images: 400
+fixed_patch: True
+# fixed_camera: True
+# fixed_light: True

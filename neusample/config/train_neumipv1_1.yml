@@ -1,0 +1,21 @@
+name: "fur_all"
+
+training_dataset: "data/training_data/fur_all.h5"
+
+num_epochs: 1000
+
+training_interface: "NeuMIPv1Module"
+interface_params:
+  lr: 1e-3
+  loss: "l1"
+
+data_interface: "NeuMIPv1DataModule"
+data_interface_params:
+  bs: 4 # 512*512 slice in 1 batch
+  num_workers: 0 # GPUs don't support >0; TODO: Remove
+
+model: "NeuMIPv1SingleRes"
+model_params:
+  resolution: [512, 512]
+  use_offset: True
+  iterations_to_sigma_1: 4000
