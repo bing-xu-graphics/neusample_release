@@ -10,30 +10,32 @@ Code and resources for SIGGRAPH 2023 paper [NeuSample: Importance Sampling for N
 
 
 # Training script examples for various sampling methods
+
 - baselines
-  
+```
   neusample\scripts\train_xs0000_02_baseline.py
   
   neusample\scripts\train_xs0000_05_xie.py
-  
+```
 - analytical method:
-  
-  neusample\scripts\train_xs0000_00_analytical.py or neusample\scripts\train_xs0027_00_analytical.py for two material examples.
-
+```
+  neusample\scripts\train_xs0000_00_analytical.py // or neusample\scripts\train_xs0027_00_analytical.py for two material examples.
+```
 - normalizing flow:
-  
+```
   neusample\scripts\train_xs0000_04_nsf_prior.py
-  
+```
 - histogram mixture:
-  
+```
   neusample\histogram\train_histogram.py
-
+```
   
 # Model inference and render using Mitsuba
-  
+```
   neusample\histogram\eval_mitsuba.py
   
   neusample\histogram\eval_tiled.py (tiled version)
+```
   
 # Please cite our paper if you don't buy us ice cream
 ```
