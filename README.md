@@ -36,6 +36,11 @@ Code and resources for SIGGRAPH 2023 paper [NeuSample: Importance Sampling for N
   
   neusample\histogram\eval_tiled.py (tiled version)
 ```
+
+# Utilities for visualization
+```
+  neusample/scripts/vis_helper.py
+```
   
 # Please cite our paper if you don't buy us ice cream
 ```
