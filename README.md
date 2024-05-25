@@ -42,7 +42,7 @@ Code and resources for SIGGRAPH 2023 paper [NeuSample: Importance Sampling for N
   neusample/scripts/vis_helper.py
 ```
   
-# Please cite our paper if you don't buy us ice cream
+# Please cite our paper if you don't buy us coffee
 ```
 @inproceedings{xu2023neusample,
   title={NeuSample: Importance Sampling for Neural Materials},
