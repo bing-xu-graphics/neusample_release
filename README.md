@@ -1,3 +1,5 @@
+
+
 # neusample_release
 Code and resources for SIGGRAPH 2023 paper [NeuSample: Importance Sampling for Neural Materials](https://cseweb.ucsd.edu/~viscomp/projects/neusample/) 
 
@@ -36,6 +38,7 @@ Code and resources for SIGGRAPH 2023 paper [NeuSample: Importance Sampling for N
   
   neusample\histogram\eval_tiled.py (tiled version)
 ```
+`eval_mitsuba.py` requires `--neumip_path` pointing to the NeuMIP weights.
 
 # Utilities for visualization
 ```
